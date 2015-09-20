@@ -12,9 +12,11 @@ var monk = require('monk');
 var config = require('./defaults');
 var db = monk(config.mongo.uri);
 
+/*
 const bus = require('servicebus').bus({
 	url: config.servicebus.uri
 });
+*/
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

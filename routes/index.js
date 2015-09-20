@@ -9,7 +9,7 @@ var config = require('../defaults');
 var db = monk(config.mongo.uri); //monk('localhost:27017/nodetest1');
 
 const bus = require('servicebus').bus({
-	url: config.servicebus.uri
+	url: config.servicebus.uri + "?heartbeat=60"
 });
 
 bus.listen('user.create', function (payload, o) {
