@@ -11,6 +11,8 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var config = require('./defaults');
 
+console.log('LeNodeENV is ' + process.env.NODE_ENV);
+
 console.log('MongoURI from config: ' + config.mongo.uri);
 console.log('MongoURI from env: ' + process.env.MONGOLAB_URI);
 
