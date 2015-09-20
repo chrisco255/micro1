@@ -12,6 +12,14 @@ const bus = require('servicebus').bus({
 	url: config.servicebus.uri + "?heartbeat=60"
 });
 
+
+console.log('MongoURI from config: ' + config.mongo.uri);
+console.log('MongoURI from env: ' + process.env.MONGOLAB_URI);
+
+
+console.log('ServiceBusURI from config: ' + config.servicebus.uri);
+console.log('ServiceBusURI from env: ' + process.env.SERVICEBUS_URI);
+
 bus.listen('user.create', function (payload, o) {
 	// Set our collection
 	var collection = db.get('usercollection');

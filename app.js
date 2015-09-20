@@ -10,6 +10,10 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
 var config = require('./defaults');
+
+console.log('MongoURI from config: ' + config.mongo.uri);
+console.log('MongoURI from env: ' + process.env.MONGOLAB_URI);
+
 var db = monk(config.mongo.uri);
 
 /*
