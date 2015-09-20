@@ -16,7 +16,7 @@ console.log('LeNodeENV is ' + process.env.NODE_ENV);
 console.log('MongoURI from config: ' + config.mongo.uri);
 console.log('MongoURI from env: ' + process.env.MONGOLAB_URI);
 
-var db = monk(config.mongo.uri);
+var db = monk(config.mongo.uri + '/rotameeting-dev');
 
 /*
 const bus = require('servicebus').bus({

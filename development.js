@@ -5,7 +5,7 @@
 module.exports = {
 	// MongoDB connection options
 	mongo: {
-		uri: 'mongodb://localhost/rotameeting-dev',
+		uri: 'mongodb://localhost',
 	},
 	servicebus: {
 		uri: 'amqp://localhost:5672'
