@@ -21,12 +21,9 @@
     "mockgoose": "^4.0.1",
     "mongodb": "~2.0.33",
     "mongoose": "^4.1.8",
-    "monk": "~1.0.1",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "servicebus": "^1.0.17",
-    "sourced": "0.0.14",
-    "sourced-repo-mongo": "^0.3.5",
     "underscore": "^1.8.3"
   }
 }

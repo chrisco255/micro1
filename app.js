@@ -8,15 +8,13 @@ var bodyParser = require('body-parser');
 
 // New Code
 var mongo = require('mongodb');
-var monk = require('monk');
-var config = require('./defaults');
+var config = require('./config/defaults');
 
 console.log('LeNodeENV is ' + process.env.NODE_ENV);
-
 console.log('MongoURI from config: ' + config.mongo.uri);
 console.log('MongoURI from env: ' + process.env.MONGOLAB_URI);
 
-var db = monk(config.mongo.uri + '/rotameeting-dev');
+//var db = monk(config.mongo.uri + '/rotameeting-dev');
 
 /*
 const bus = require('servicebus').bus({
@@ -25,7 +23,7 @@ const bus = require('servicebus').bus({
 */
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 
 var app = express();
 
@@ -41,14 +39,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
-app.use(function(req,res,next){
-	req.db = db;
-	next();
-});
-
 app.use('/', routes);
-app.use('/users', users);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
