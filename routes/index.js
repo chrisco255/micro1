@@ -8,6 +8,8 @@ const UserEventSchema = require('./userevent');
 const mongoose = require('mongoose');
 const mockgoose = require('mockgoose');
 const _ = require('underscore');
+const CBBus = require('../lib/cbbus');
+const userQ = CBBus.createQueue({ queueName: 'user' });
 
 mockgoose(mongoose);
 mongoose.connect('mongodb://localhost/rotameeting-dev');
@@ -16,10 +18,6 @@ mongoose.originalConnect(config.mongo.uri + '/rotameeting-dev');
 //Users are cached in memory and rebuilt from userevent db on bootup
 const User = mongoose.model('User', UserSchema);
 const UserEvent = mongoose.originalModel('UserEvent', UserEventSchema);
-
-const bus = require('servicebus').bus({
-	url: config.servicebus.uri + "?heartbeat=60"
-});
 
 console.log('MongoURI from config: ' + config.mongo.uri);
 console.log('ServiceBusURI from config: ' + config.servicebus.uri);
@@ -39,33 +37,56 @@ UserEvent.find({}, function(err, events) {
 	});
 });
 
-//Listen on bus for create command
-bus.listen('user.create', function (payload, o) {
-  let commandId = payload.commandId,
-      data = payload.data;
+//define commands for user queue
+const Commands = {
+  get: getUsers,
+  post: createUser
+};
 
-  var newUser = new User(data);
+userQ.listen(function(msg) {
+  let cmd = Commands[msg.cmd];
+  if(typeof cmd === 'function') { cmd(msg); }
+});
+
+function createUser(msg) {
+  let reqId = msg.reqId,
+      payload = msg.payload;
+
+  var newUser = new User(payload);
   newUser.save(function(err, user) {
     if (err) {
       // If it failed, return error
-      bus.send("user.create.response", { status: 400, commandId: commandId, payload: { type: "error", error: err } });
+      userQ.sendResponse({ status: 400, reqId, payload: { type: "error", error: err } });
     }
     else {
-      let createEvent = new UserEvent({ "event" : "createUser", "data" : { _id: user._id, name: user.name, email: user.email } });
-			createEvent.save(function (err, userEvent) {
+      let newEvent = new UserEvent({ "event" : "createUser", "data" : { _id: user._id, name: user.name, email: user.email } });
+      newEvent.save(function (err, userEvent) {
         if (err) {
           // If it failed, return error
           newUser.remove();
-          bus.send("user.create.response", { status: 400, commandId: commandId, payload: { type: "error creating event", error: err } });
+          userQ.sendResponse({ status: 400, reqId, payload: { type: "error creating event", error: err } });
         }
         else {
           // Send success response back
-          bus.send("user.create.response", { status: 200, commandId: commandId, payload: user });
+          userQ.sendResponse({ status: 200, reqId, payload: user });
         }
       });
     }
   });
-});
+}
+
+function getUsers(msg) {
+  let reqId = msg.reqId;
+
+  User.find(function(err, users) {
+    if (err) {
+      // If it failed, return error
+      userQ.sendResponse({ status: 400, reqId, payload: { type: "error", error: err } });
+    } else {
+      userQ.sendResponse({ status: 200, reqId, payload: users })
+    }
+  });
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
