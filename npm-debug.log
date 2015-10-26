@@ -1,39 +1,42 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'c:\\nodejs\\node.exe',
-1 verbose cli   'c:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'start' ]
-2 info using npm@2.14.2
-3 info using node@v4.0.0
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@3.3.6
+3 info using node@v4.1.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart micro1@0.0.0
-6 info start micro1@0.0.0
-7 verbose unsafe-perm in lifecycle true
-8 info micro1@0.0.0 Failed to exec start script
-9 verbose stack Error: micro1@0.0.0 start: `node ./bin/www`
-9 verbose stack Exit status 1
-9 verbose stack     at EventEmitter.<anonymous> (c:\nodejs\node_modules\npm\lib\utils\lifecycle.js:214:16)
-9 verbose stack     at emitTwo (events.js:87:13)
-9 verbose stack     at EventEmitter.emit (events.js:172:7)
-9 verbose stack     at ChildProcess.<anonymous> (c:\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
-9 verbose stack     at emitTwo (events.js:87:13)
-9 verbose stack     at ChildProcess.emit (events.js:172:7)
-9 verbose stack     at maybeClose (internal/child_process.js:817:16)
-9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
-10 verbose pkgid micro1@0.0.0
-11 verbose cwd C:\projects\amicro\micro1
-12 error Windows_NT 10.0.10532
-13 error argv "c:\\nodejs\\node.exe" "c:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
-14 error node v4.0.0
-15 error npm  v2.14.2
-16 error code ELIFECYCLE
-17 error micro1@0.0.0 start: `node ./bin/www`
-17 error Exit status 1
-18 error Failed at the micro1@0.0.0 start script 'node ./bin/www'.
-18 error This is most likely a problem with the micro1 package,
-18 error not with npm itself.
-18 error Tell the author that this fails on your system:
-18 error     node ./bin/www
-18 error You can get their info via:
-18 error     npm owner ls micro1
-18 error There is likely additional logging output above.
-19 verbose exit [ 1, true ]
+5 info lifecycle micro1@0.0.0~prestart: micro1@0.0.0
+6 silly lifecycle micro1@0.0.0~prestart: no script for prestart, continuing
+7 info lifecycle micro1@0.0.0~start: micro1@0.0.0
+8 verbose lifecycle micro1@0.0.0~start: unsafe-perm in lifecycle true
+9 verbose lifecycle micro1@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/chrisc/Projects/micro1/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/sbin
+10 verbose lifecycle micro1@0.0.0~start: CWD: /Users/chrisc/Projects/micro1
+11 silly lifecycle micro1@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
+12 silly lifecycle micro1@0.0.0~start: Returned: code: 1  signal: null
+13 info lifecycle micro1@0.0.0~start: Failed to exec start script
+14 verbose stack Error: micro1@0.0.0 start: `node ./bin/www`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:233:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:817:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid micro1@0.0.0
+16 verbose cwd /Users/chrisc/Projects/micro1
+17 error Darwin 14.5.0
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+19 error node v4.1.1
+20 error npm  v3.3.6
+21 error code ELIFECYCLE
+22 error micro1@0.0.0 start: `node ./bin/www`
+22 error Exit status 1
+23 error Failed at the micro1@0.0.0 start script 'node ./bin/www'.
+23 error This is most likely a problem with the micro1 package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     node ./bin/www
+23 error You can get their info via:
+23 error     npm owner ls micro1
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
